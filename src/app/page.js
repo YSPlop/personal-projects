@@ -1,4 +1,6 @@
 "use client";
+import { setLazyProp } from 'next/dist/server/api-utils';
+import { Hammersmith_One } from 'next/font/google';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -29,7 +31,7 @@ function GalleryComponent() {
   );
 }
 
-export default function Board() {
+function Board() {
 
   const defaultBoardValue = '.';
 
@@ -45,39 +47,35 @@ export default function Board() {
       console.log('squares i is ' + squares[i]);
       return;
     }
-    let elementToRemove = null;
 
     const nextSquares = squares.slice();
-    if (xIsNext) {
-      let xCopy = xMoves.slice();
 
-      nextSquares[i] = 'X';
-      xCopy.push(i);
-      if (xCopy.length > 3) {
-        elementToRemove = xCopy.shift();
+    function handleMove(moves, setMoves, mark) {
+      let movesCopy = moves.slice();
+      nextSquares[i] = mark;
+      movesCopy.push(i);
+      if (movesCopy.length > 3) {
+        const elementToRemove = movesCopy.shift();
         nextSquares[elementToRemove] = defaultBoardValue;
       }
-      setXMoves(xCopy);
-    
-    } else {
-
-      let oCopy = oMoves.slice();
-      nextSquares[i] = 'O';
-      oCopy.push(i);
-      
-      if (oCopy.length > 3) {
-        elementToRemove = oCopy.shift();
-        nextSquares[elementToRemove] = defaultBoardValue;
-      }
-
-      setOMoves(oCopy);
-
+      setMoves(movesCopy);
     }
-    console.log('xmoves is ' + xMoves);
-    console.log('omoves is ' + oMoves);
+    
+    if (xIsNext) {
+      handleMove(xMoves, setXMoves, 'X');
+    } else {
+      handleMove(oMoves, setOMoves, 'O');
+    }
+
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
   
+  }
+
+  function resetBoard() {
+    setSquares(Array(9).fill(defaultBoardValue));
+    setXMoves([]);
+    setOMoves([]);
   }
 
   const winner = calculateWinner(squares);
@@ -92,21 +90,30 @@ export default function Board() {
     <>
       <div className="w-full py-10">
         <div className="text-center">
-          <div className="status">{status}</div>
-          <div className="board-row">
-            <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-            <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-            <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-          </div>
-          <div className="board-row">
-            <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-            <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-            <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-          </div>
-          <div className="board-row">
-            <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-            <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-            <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+          <div className="status ">{status}</div>
+          <div className="flex items-center justify-center">
+            <div className="board">
+              <div className="board-row">
+                <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+              </div>
+              <div className="board-row">
+                <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+              </div>
+              <div className="board-row">
+                <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+              </div>
+            </div>
+            <button onClick={resetBoard} class="ml-[20px] relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                Reset
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -137,4 +144,28 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+export default function Home() {
+
+  const gameExplanation = "Welcome to a cursed game of Tic Tac Toe, where every 4 moves, your first move disappears, hope you have some fun playing this version";
+
+  return (
+    <>
+      <div className="text-center">
+        <h1 className="font-family:jetbrains mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"  style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-purple-800 mr-5">
+            Cursed
+          </span>
+          TicTacToe.
+        </h1>
+        
+        <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 font-mono">
+          {gameExplanation}
+        </p>
+      </div>
+      <Board />
+    </>
+  );
+
 }
