@@ -45,31 +45,32 @@ export default function Board() {
       console.log('squares i is ' + squares[i]);
       return;
     }
+    let elementToRemove = null;
 
     const nextSquares = squares.slice();
     if (xIsNext) {
+      let xCopy = xMoves.slice();
 
       nextSquares[i] = 'X';
-      setXMoves([...xMoves, i]);
-      if (xMoves.length > 3) {
-        
-        elementToRemove = xMoves.shift();
-        setXMoves(xMoves);
-        
+      xCopy.push(i);
+      if (xCopy.length > 3) {
+        elementToRemove = xCopy.shift();
         nextSquares[elementToRemove] = defaultBoardValue;
       }
-
+      setXMoves(xCopy);
+    
     } else {
 
+      let oCopy = oMoves.slice();
       nextSquares[i] = 'O';
-      setOMoves(...oMoves, i);
-
-      if (oMoves.length > 3) {
-        
-        elementToRemove = oMoves.shift();
+      oCopy.push(i);
+      
+      if (oCopy.length > 3) {
+        elementToRemove = oCopy.shift();
         nextSquares[elementToRemove] = defaultBoardValue;
-
       }
+
+      setOMoves(oCopy);
 
     }
     console.log('xmoves is ' + xMoves);
@@ -89,22 +90,24 @@ export default function Board() {
 
   return (
     <>
-      <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-        </div>
-        <div className="board-row">
-          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-        </div>
-        <div className="board-row">
-          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+      <div className="w-full py-10">
+        <div className="text-center">
+          <div className="status">{status}</div>
+          <div className="board-row">
+            <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+            <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+            <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+          </div>
+          <div className="board-row">
+            <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+            <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+            <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+          </div>
+          <div className="board-row">
+            <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+            <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+            <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+          </div>
         </div>
       </div>
       <div>
