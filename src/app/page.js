@@ -31,6 +31,27 @@ function GalleryComponent() {
   );
 }
 
+function calculateWinner(squares) {
+  const defaultBoardValue = '.';
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] !== defaultBoardValue && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+
 function Board() {
 
   const defaultBoardValue = '.';
@@ -39,6 +60,7 @@ function Board() {
   const [xMoves, setXMoves] = useState([]);
   const [oMoves, setOMoves] = useState([]);
   const [squares, setSquares] = useState(Array(9).fill(defaultBoardValue));
+  
 
   function handleClick(i) {
     
@@ -109,8 +131,8 @@ function Board() {
                 <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
               </div>
             </div>
-            <button onClick={resetBoard} class="ml-[20px] relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            <button onClick={resetBoard} className="ml-[20px] relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                 Reset
               </span>
             </button>
@@ -123,27 +145,6 @@ function Board() {
     </>
     
   );
-}
-
-function calculateWinner(squares) {
-  const defaultBoardValue = '.';
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] !== defaultBoardValue && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
 }
 
 export default function Home() {
