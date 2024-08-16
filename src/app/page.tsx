@@ -3,6 +3,7 @@ import { setLazyProp } from 'next/dist/server/api-utils';
 import { Hammersmith_One } from 'next/font/google';
 import Image from 'next/image';
 import { useState } from 'react';
+import Chat from '@/components/Chat';
 
 function Square({value, onSquareClick}) {
   return (
@@ -60,6 +61,7 @@ function Board() {
   const [xMoves, setXMoves] = useState([]);
   const [oMoves, setOMoves] = useState([]);
   const [squares, setSquares] = useState(Array(9).fill(defaultBoardValue));
+  const gameExplanation = "Welcome to a cursed game of Tic Tac Toe, where every 4 moves, your first move disappears, hope you have some fun playing this version";
   
 
   function handleClick(i) {
@@ -110,6 +112,18 @@ function Board() {
 
   return (
     <>
+      <div className="text-center">
+        <h1 className="font-family:jetbrains mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"  style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-purple-800 mr-5">
+            Cursed
+          </span>
+          TicTacToe.
+        </h1>
+        
+        <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 font-mono">
+          {gameExplanation}
+        </p>
+      </div>
       <div className="w-full py-10">
         <div className="text-center">
           <div className="status ">{status}</div>
@@ -139,33 +153,28 @@ function Board() {
           </div>
         </div>
       </div>
-      <div>
-        <GalleryComponent />
-      </div>
     </>
     
   );
 }
 
+function AiChatBot() {
+  return (
+    <main className='App'>
+      <div className='container'>
+        <div className="header">
+          <p>Talk to chat bot</p>
+        </div>
+        <Chat />
+      </div>
+    </main>
+  );
+}
+
 export default function Home() {
-
-  const gameExplanation = "Welcome to a cursed game of Tic Tac Toe, where every 4 moves, your first move disappears, hope you have some fun playing this version";
-
   return (
     <>
-      <div className="text-center">
-        <h1 className="font-family:jetbrains mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"  style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-purple-800 mr-5">
-            Cursed
-          </span>
-          TicTacToe.
-        </h1>
-        
-        <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 font-mono">
-          {gameExplanation}
-        </p>
-      </div>
-      <Board />
+      <AiChatBot />
     </>
   );
 
