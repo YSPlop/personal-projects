@@ -4,6 +4,8 @@ import { Hammersmith_One } from 'next/font/google';
 import Image from 'next/image';
 import { useState } from 'react';
 import Link from 'next/link'
+import Chat from './components/Chat';
+import './globals.css';
 
 
 
@@ -16,7 +18,9 @@ function GalleryComponent() {
             </Link>
         </div>
         <div className="gallery-panel">
-            <img src="./img2.jpeg" alt="pic2"/>
+            <Link href="/AIChatBot">
+              <img src="./img2.jpeg" alt="pic1"/>
+            </Link>
         </div>
         <div className="gallery-panel">
             <img src="./img3.jpeg" alt="pic3"/>
@@ -32,7 +36,8 @@ export default function Home() {
   return (
     <>
       {/* <Link href="/TicTacToe">Dashboard</Link> */}
-      <GalleryComponent />
+      <Chat />
+      {/* <GalleryComponent /> */}
     </>
   );
 

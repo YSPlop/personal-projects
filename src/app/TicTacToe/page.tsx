@@ -7,11 +7,11 @@ interface SquareProps {
   };
   
 function Square({value, onSquareClick}: SquareProps) {
-return (
-    <button className="border border-black rounded shadow text-black h-[30px] w-[30px]" onClick={onSquareClick}>
-    {value}
-    </button>
-);
+    return (
+        <button className="border border-black rounded shadow text-black h-[30px] w-[30px]" onClick={onSquareClick}>
+        {value}
+        </button>
+    );
 }
 
 function calculateWinner(squares: string[]): string | null {
