@@ -135,23 +135,27 @@ h1 {
 }
 
 .send-button {
-  padding: 10px 20px;
-  height: 40px;
-  border-radius: 20px;
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  box-shadow: 0 0 24px #ffeb3b;
-  background-color: #ffca00;
-  color: #fff;
-  font-weight: 900;
-  margin-left: 10px;
-  cursor: pointer;
-  text-transform: uppercase;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%2314263b'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: left 16px center;
-}
+    padding: 10px 20px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 24px #ffeb3b;
+    background-color: #ffca00;
+    color: #fff;
+    font-weight: 900;
+    margin-left: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%2314263b'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 16px center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
 
 .send-button:hover {
   background-color: #ffe80e;
@@ -193,4 +197,35 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 10px #ffeb3b40;
+}
+
+/* Spinner Styling */
+.spinner {
+    border: 3px solid rgba(0, 0, 0, 0.3); /* Light border */
+    border-top: 3px solid #fff; /* Darker border on top */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+  
+@keyframes spin {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+.send-button.loading {
+    box-shadow: none; /* Remove shadow when loading */
+    background-image: none; /* Remove arrow background when loading */
+    display: flex;
+    justify-content: center;
+    padding: 10px; /* Center align spinner */
+}
+
+.send-button.loading .spinner {
+    display: block; 
 }

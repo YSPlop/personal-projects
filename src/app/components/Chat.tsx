@@ -11,7 +11,7 @@ const Chat = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
 
     // Add the user's message to the messages state
     const userMessage = { role: 'user', content: input };
@@ -51,20 +51,20 @@ const Chat = () => {
     }
   };
 
-  /* const scroll = () => {
+  const scroll = () => {
     if (chatContainer.current) {
       const { offsetHeight, scrollHeight, scrollTop } = chatContainer.current;
       if (scrollHeight >= scrollTop + offsetHeight) {
         chatContainer.current.scrollTo(0, scrollHeight + 200);
       }
     }
-  }; */
+  };
 
-  const scroll = () => {
+  /* const scroll = () => {
     if (chatContainer.current) {
       chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
     }
-  };
+  }; */
 
   useEffect(() => {
     scroll();
@@ -109,8 +109,15 @@ const Chat = () => {
           placeholder="Say anything"
           onChange={(e) => setInput(e.target.value)}
           value={input}
+          disabled={loading}
         />
-        <button type="submit" className="send-button" />
+        <button
+          type="submit"
+          className={`send-button ${loading ? 'loading' : ''}`}
+          disabled={loading}
+        >
+          {loading ? <div className="spinner" /> : null}
+        </button>
       </form>
     </div>
   );
