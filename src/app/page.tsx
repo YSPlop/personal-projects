@@ -36,8 +36,8 @@ export default function Home() {
   return (
     <>
       {/* <Link href="/TicTacToe">Dashboard</Link> */}
-      <Chat />
-      {/* <GalleryComponent /> */}
+      {/* <Chat /> */}
+      <GalleryComponent />
     </>
   );
 
