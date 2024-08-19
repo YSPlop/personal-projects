@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Chat from "@/components/chat";
 import './chatbot.css'
 
 export default function Home() {
