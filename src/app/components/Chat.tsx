@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
 
 const Chat = () => {
@@ -7,6 +9,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
 
   const chatContainer = useRef<HTMLDivElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +20,12 @@ const Chat = () => {
     const userMessage = { role: 'user', content: input };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
+
+    // reset input box width
+    const textarea = textAreaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+    }
 
     // Clear the input
     setInput('');
@@ -66,6 +75,19 @@ const Chat = () => {
     }
   }; */
 
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+    const textarea = textAreaRef.current;
+    if (textarea) {
+      setInput(e.target.value);
+
+      // Reset the height to auto to shrink when needed
+      textarea.style.height = "auto";
+
+      // Increase the height according to content, with a max height limit
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // max height 200px
+    }
+  };
+
   useEffect(() => {
     scroll();
   }, [messages]);
@@ -88,7 +110,9 @@ const Chat = () => {
               src={m.role === "user" ? "/user-avatar.jpg" : "/ai-avatar.png"}
             />
             <div style={{ width: "100%", marginLeft: "16px" }}>
-              <p className="message">{m.content}</p>
+            <ReactMarkdown className="message" remarkPlugins={[remarkGfm]}>
+              {m.content}
+            </ReactMarkdown>
               {index < messages.length - 1 && (
                 <div className="horizontal-line" />
               )}
@@ -99,17 +123,21 @@ const Chat = () => {
     );
   };
 
+  
+
+
   return (
     <div ref={chatContainer} className="chat">
       {renderResponse()}
       <form onSubmit={handleSubmit} className="chat-form">
-        <input
+        <textarea
+          ref={textAreaRef}
           name="input-field"
-          type="text"
           placeholder="Say anything"
-          onChange={(e) => setInput(e.target.value)}
+          onChange={handleInputChange}
           value={input}
           disabled={loading}
+          style={{ resize: "none" }}
         />
         <button
           type="submit"

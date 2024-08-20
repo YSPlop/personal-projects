@@ -12,7 +12,7 @@ export async function handleOpenAIRequest(messages: any[]) {
     messages: [
       {
         role: "system",
-        content: "You are a seasoned React and Next JS developer and happy to help anyone who comes your way."
+        content: "You are a knowledgeable bot that helps people with their coding problems. You are helpful, creative, and very friendly."
       },
       ...messages,
     ],

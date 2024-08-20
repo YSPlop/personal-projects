@@ -167,8 +167,9 @@ h1 {
   bottom: 0;
   left: 0;
   right: 0;
-  width: 700px;
-  margin: 30px auto;
+  width: 80vw; /* Use vw to make it relative to window width */
+  max-width: 700px; /* Set a maximum width */
+  margin: 30px auto; /* Centering the form */
   box-sizing: border-box;
   padding-left: 70px;
   padding-right: 30px;
@@ -186,17 +187,26 @@ h1 {
   color: black;
 }
 
+.chat-form textarea {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 1px solid white;
+  outline: none;
+  box-sizing: border-box;
+  margin: auto;
+  height: 50px; /* default height */
+  max-height: 200px; /* maximum height */
+  color: black;
+  overflow-y: auto; /* Show scrollbar when necessary */
+  resize: none; /* Disable manual resizing */
+  transition: height 0.2s ease; /* Smooth transition */
+}
+
 .chat-form > button {
   position: absolute;
   right: 40px;
-  top: 5px;
-}
-
-.highlighted-text {
-  background: linear-gradient(45deg, #ff8c8c, #ffe608);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px #ffeb3b40;
+  bottom: 12px;
 }
 
 /* Spinner Styling */
@@ -228,4 +238,11 @@ h1 {
 
 .send-button.loading .spinner {
     display: block; 
+}
+
+.highlighted-text {
+  background: linear-gradient(45deg, #ff8c8c, #ffe608);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px #ffeb3b40;
 }
