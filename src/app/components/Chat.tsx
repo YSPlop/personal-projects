@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import axios from 'axios';
 
 const Chat = () => {
   const [input, setInput] = useState('');
@@ -11,10 +13,40 @@ const Chat = () => {
   const chatContainer = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!input.trim() || loading) return;
+
+    if (!executeRecaptcha) {
+      console.log("not available to execute recaptcha");
+      return;
+    }
+
+    const gRecaptchaToken = await executeRecaptcha('inquirySubmit');
+
+    ///
+
+    const response = await axios({
+      method: "post",
+      url: "/api/recaptchaSubmit",
+      data: {
+        gRecaptchaToken,
+      },
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response?.data?.success === true) {
+      console.log(`Success with score: ${response?.data?.score}`);
+    } else {
+      console.log(`Failure with score: ${response?.data?.score}`);
+    }
+
 
     // Add the user's message to the messages state
     const userMessage = { role: 'user', content: input };
