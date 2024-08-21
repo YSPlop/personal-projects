@@ -10,7 +10,7 @@ export default function Home() {
       <nav className="flex justify-between items-center p-4">
         {/* <Image src="/logo.png" alt="Codebender Logo" width={150} height={40} /> */}
         <h1 className="text-xl font-semibold">
-          Talk to <span className="highlighted-text">Plop's Bot</span>
+          Talk to <span className="highlighted-text">{"Plop's Bot"}</span>
         </h1>
       </nav>
       <div className="flex-grow overflow-hidden">

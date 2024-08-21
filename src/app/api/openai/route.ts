@@ -7,7 +7,7 @@ const openai = new OpenAI({
 });
 
 // Function to handle OpenAI API call
-export async function handleOpenAIRequest(messages: any[]) {
+async function handleOpenAIRequest(messages: any[]) {
   const response = await openai.chat.completions.create({
     messages: [
       {

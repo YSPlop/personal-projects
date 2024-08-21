@@ -14,19 +14,19 @@ function GalleryComponent() {
       <div className="gallery">
         <div className="gallery-panel">
             <Link href="/TicTacToe">
-              <img src="./img1.jpeg" alt="pic1"/>
+              <Image src="./img1.jpeg" alt="pic1"/>
             </Link>
         </div>
         <div className="gallery-panel">
             <Link href="/AIChatBot">
-              <img src="./img2.jpeg" alt="pic1"/>
+              <Image src="./img2.jpeg" alt="pic1"/>
             </Link>
         </div>
         <div className="gallery-panel">
-            <img src="./img3.jpeg" alt="pic3"/>
+            <Image src="./img3.jpeg" alt="pic3"/>
         </div>
         <div className="gallery-panel">
-            <img src="./img4.jpeg" alt="pic4"/>
+            <Image src="./img4.jpeg" alt="pic4"/>
         </div>
       </div>
   );
