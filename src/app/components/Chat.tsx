@@ -27,8 +27,6 @@ const Chat = () => {
 
     const gRecaptchaToken = await executeRecaptcha('inquirySubmit');
 
-    ///
-
     const response = await axios({
       method: "post",
       url: "/api/recaptchaSubmit",
