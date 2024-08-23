@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import "dotenv/config"
 import axios from "axios";
 
 export async function POST(request: Request, response: Response) {

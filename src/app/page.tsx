@@ -1,13 +1,15 @@
 "use client";
 import './globals.css';
-import GalleryComponent from './components/GalleryComponent';
+import GalleryComponent from './components/GalleryComponent/GalleryComponent';
 
 export default function Home() {
   return (
     <>
-      {/* <Link href="/TicTacToe">Dashboard</Link> */}
-      {/* <Chat /> */}
-      <GalleryComponent />
+      <div>
+      </div>
+      <div className='flex justify-center'>
+          <GalleryComponent />
+      </div>
     </>
   );
 

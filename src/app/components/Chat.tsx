@@ -17,7 +17,7 @@ const Chat = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setLoading(true);
     if (!input.trim() || loading) return;
 
     if (!executeRecaptcha) {
@@ -26,8 +26,6 @@ const Chat = () => {
     }
 
     const gRecaptchaToken = await executeRecaptcha('inquirySubmit');
-
-    ///
 
     const response = await axios({
       method: "post",
@@ -63,7 +61,7 @@ const Chat = () => {
     setInput('');
 
     try {
-      setLoading(true);
+      
 
       // Make the POST request to your API route
       const response = await fetch('/api/openai', {
@@ -124,6 +122,7 @@ const Chat = () => {
     scroll();
   }, [messages]);
 
+
   const renderResponse = () => {
     return (
       <div className="response">
@@ -143,7 +142,7 @@ const Chat = () => {
             />
             <div style={{ width: "100%", marginLeft: "16px" }}>
             <ReactMarkdown className="message" remarkPlugins={[remarkGfm]}>
-              {m.content}
+              {m.content}    
             </ReactMarkdown>
               {index < messages.length - 1 && (
                 <div className="horizontal-line" />

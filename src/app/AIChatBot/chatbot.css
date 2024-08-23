@@ -26,7 +26,7 @@ nav {
 
 .container {
   width: 100%;
-  max-width: 920px;
+  max-width: calc(100vw - 100px);
   margin: auto;
 }
 
@@ -47,7 +47,7 @@ h1 {
 }
 
 .chat {
-  width: 700px;
+  max-width: 80%;
   height: calc(100vh - 200px);
   margin: auto;
 }
@@ -58,7 +58,7 @@ h1 {
   text-align: left;
   padding: 30px;
   overflow: auto;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 200px);
   box-sizing: border-box;
 }
 
@@ -95,6 +95,10 @@ h1 {
 
 .chat-line .message {
   margin-top: 0;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 18px;
+  text-shadow: 0 0 4px #ffffff9c;
 }
 
 .ai-chat .message {

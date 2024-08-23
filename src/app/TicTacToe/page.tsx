@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import './tictactoe.css'
+
 
 interface SquareProps {
     value: string|null;
@@ -80,41 +82,41 @@ export default function Board() {
     function calculateBestMove(board: string[], mark: string) {
         // Strategy: 1) Winning move, 2) Block opponent, 3) Otherwise take the best open space
         for (let i = 0; i < 9; i++) {
-        if (board[i] === defaultBoardValue) {
-            // Clone the board and simulate placing 'O'
-            const tempBoard = board.slice();
-            tempBoard[i] = mark;
+            if (board[i] === defaultBoardValue) {
+                // Clone the board and simulate placing 'O'
+                const tempBoard = board.slice();
+                tempBoard[i] = mark;
 
-            if (calculateWinner(tempBoard) === mark) {
-            return i; // 'O' wins
+                if (calculateWinner(tempBoard) === mark) {
+                    return i; // 'O' wins
+                }
             }
-        }
         }
 
         // Block opponent's winning move
         for (let i = 0; i < 9; i++) {
-        if (board[i] === defaultBoardValue) {
-            const tempBoard = board.slice();
-            tempBoard[i] = 'X'; // simulate 'X' move
-            if (calculateWinner(tempBoard) === 'X') {
-            return i; // Block 'X'
+            if (board[i] === defaultBoardValue) {
+                const tempBoard = board.slice();
+                tempBoard[i] = 'X'; // simulate 'X' move
+                if (calculateWinner(tempBoard) === 'X') {
+                    return i; // Block 'X'
+                }
             }
-        }
         }
 
         // If no immediate win or block, take an open corner, center, or side
         const openCorners = [0, 2, 6, 8].filter(i => board[i] === defaultBoardValue);
         if (openCorners.length) {
-        return openCorners[Math.floor(Math.random() * openCorners.length)];
+            return openCorners[Math.floor(Math.random() * openCorners.length)];
         }
 
         if (board[4] === defaultBoardValue) {
-        return 4; // Take center if open
+            return 4; // Take center if open
         }
 
         const openSides = [1, 3, 5, 7].filter(i => board[i] === defaultBoardValue);
         if (openSides.length) {
-        return openSides[Math.floor(Math.random() * openSides.length)];
+            return openSides[Math.floor(Math.random() * openSides.length)];
         }
 
         return -1; // No move available
@@ -165,8 +167,10 @@ export default function Board() {
                     <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
                 </div>
                 </div>
-                <button onClick={resetBoard} className="ml-[20px]">
-                Reset
+                <button onClick={resetBoard} className="ml-[20px] button-75">
+                    <span>
+                        Reset
+                    </span>
                 </button>
             </div>
             </div>

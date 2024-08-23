@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import './chatbot.css'
 import Chat from "../components/Chat";
 
