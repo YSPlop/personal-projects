@@ -1,6 +1,7 @@
 "use client";
 import './globals.css';
-import GalleryComponent from './components/GalleryComponent/GalleryComponent';
+import GalleryComponent from '../components/GalleryComponent/GalleryComponent';
+import Hero from '../components/Hero/Hero';
 
 export default function Home() {
   return (
@@ -8,7 +9,8 @@ export default function Home() {
       <div>
       </div>
       <div className='flex justify-center'>
-          <GalleryComponent />
+        {/* <GalleryComponent /> */}
+        <Hero />
       </div>
     </>
   );
