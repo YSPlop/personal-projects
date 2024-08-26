@@ -101,13 +101,6 @@ h1 {
   text-shadow: 0 0 4px #ffffff9c;
 }
 
-.ai-chat .message {
-  line-height: 18px;
-  text-shadow: 0 0 4px #ffffff9c;
-  font-family: monospace;
-  font-size: 14px;
-}
-
 .user-chat > .avatar {
   box-shadow: 0 0 24px #ffffff4f;
 }

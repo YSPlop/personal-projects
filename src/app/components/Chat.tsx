@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
@@ -45,7 +45,6 @@ const Chat = () => {
       console.log(`Failure with score: ${response?.data?.score}`);
     }
 
-
     // Add the user's message to the messages state
     const userMessage = { role: 'user', content: input };
     const updatedMessages = [...messages, userMessage];
@@ -61,8 +60,6 @@ const Chat = () => {
     setInput('');
 
     try {
-      
-
       // Make the POST request to your API route
       const response = await fetch('/api/openai', {
         method: 'POST',
@@ -92,18 +89,9 @@ const Chat = () => {
 
   const scroll = () => {
     if (chatContainer.current) {
-      const { offsetHeight, scrollHeight, scrollTop } = chatContainer.current;
-      if (scrollHeight >= scrollTop + offsetHeight) {
-        chatContainer.current.scrollTo(0, scrollHeight + 200);
-      }
-    }
-  };
-
-  /* const scroll = () => {
-    if (chatContainer.current) {
       chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
     }
-  }; */
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     const textarea = textAreaRef.current;
@@ -122,6 +110,34 @@ const Chat = () => {
     scroll();
   }, [messages]);
 
+  // enter button to submit
+  useEffect(() => {
+    const inputField = document.getElementById("input-field") as HTMLTextAreaElement;
+
+    if (inputField) {
+      inputField.addEventListener("keypress", (event: KeyboardEvent) => {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          // Trigger the button element with a click
+          document.getElementById("send-button")?.click();
+        }
+      });
+    }
+    // Cleanup function to remove the event listener
+    return () => {
+      if (inputField) {
+        inputField.removeEventListener("keypress", () => {});
+      }
+    };
+  }, []);
+
+  // Focus on the text area after loading
+  useEffect(() => {
+    if (!loading && textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  }, [loading, messages]);
 
   const renderResponse = () => {
     return (
@@ -141,7 +157,7 @@ const Chat = () => {
               src={m.role === "user" ? "/user-avatar.jpg" : "/ai-avatar.png"}
             />
             <div style={{ width: "100%", marginLeft: "16px" }}>
-            <ReactMarkdown className="message" remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {m.content}    
             </ReactMarkdown>
               {index < messages.length - 1 && (
@@ -154,15 +170,13 @@ const Chat = () => {
     );
   };
 
-  
-
-
   return (
     <div ref={chatContainer} className="chat">
       {renderResponse()}
       <form onSubmit={handleSubmit} className="chat-form">
         <textarea
           ref={textAreaRef}
+          id="input-field"
           name="input-field"
           placeholder="Say anything"
           onChange={handleInputChange}
@@ -171,6 +185,7 @@ const Chat = () => {
           style={{ resize: "none" }}
         />
         <button
+          id="send-button"
           type="submit"
           className={`send-button ${loading ? 'loading' : ''}`}
           disabled={loading}
@@ -180,8 +195,6 @@ const Chat = () => {
       </form>
     </div>
   );
-
-  
 };
 
 export default Chat;

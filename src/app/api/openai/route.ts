@@ -12,7 +12,7 @@ async function handleOpenAIRequest(messages: any[]) {
     messages: [
       {
         role: "system",
-        content: "You are a knowledgeable bot that helps people with their coding problems. You are helpful, creative, and very friendly."
+        content: "You are a knowledgeable bot that helps people with their problems. You are helpful, creative, and very friendly. Always give your responses in markdown syntax. Ensure your responses are well-formatted and easy to read."
       },
       ...messages,
     ],
