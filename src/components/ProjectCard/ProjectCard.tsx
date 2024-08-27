@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
@@ -11,22 +11,26 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack, imageUrl, projectLink }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
   return (
     <motion.div
-      className="relative w-full h-64 bg-black shadow-lg rounded-lg overflow-hidden cursor-pointer group"
+      ref={cardRef}
+      className="relative w-full h-64 bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer"
       whileHover={{ scale: 1.05 }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* Wrap the image and content in a link */}
       <a href={projectLink} className="block w-full h-full relative">
-        {/* Image */}
-        <img
-          src={imageUrl}
-          alt={title}
-          className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 ease-in-out z-0 grayscale-0 transition-colors duration-300 group-hover:grayscale"
-        />
-
+        
         {/* Hover content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white p-4 z-10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
+        <div
+          className={`absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 text-white p-4 z-10 transition-opacity duration-300 ${isHovered ? 'opacity-75' : 'opacity-0'}`}
+        >
           <h3 className="text-xl font-semibold mb-2">{title}</h3>
           <p className="text-sm text-center">{description}</p>
           <ul className="mt-2 flex flex-wrap justify-center gap-2">
@@ -37,11 +41,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
             ))}
           </ul>
         </div>
+
+        {/* Image */}
+        <img
+          src={imageUrl}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 z-0 grayscale-0"
+        />
+        
       </a>
     </motion.div>
   );
 };
-
-
 
 export default ProjectCard;
