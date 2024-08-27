@@ -1,43 +1,47 @@
 "use client"
-import { motion } from 'framer-motion';
-import Link from 'next/link';
 import React from 'react';
-import "./projectCard.module.scss"
+import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
   title: string;
   description: string;
-  projectName: string;
+  techStack: string[];
+  imageUrl: string;
+  projectLink: string;
 }
 
-const lol: React.FC<ProjectCardProps> = ({ title, description, projectName }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack, imageUrl, projectLink }) => {
   return (
-    <Link href={`/projects/${projectName}`}>
-      <motion.div
-        className="bg-white p-6 shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300"
-        whileHover={{ scale: 1.05 }}
-      >
-        <h3 className="text-2xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600">{description}</p>
-      </motion.div>
-    </Link>
-      
+    <motion.div
+      className="relative w-full h-64 bg-black shadow-lg rounded-lg overflow-hidden cursor-pointer group"
+      whileHover={{ scale: 1.05 }}
+    >
+      {/* Wrap the image and content in a link */}
+      <a href={projectLink} className="block w-full h-full relative">
+        {/* Image */}
+        <img
+          src={imageUrl}
+          alt={title}
+          className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 ease-in-out z-0 grayscale-0 transition-colors duration-300 group-hover:grayscale"
+        />
+
+        {/* Hover content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white p-4 z-10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
+          <h3 className="text-xl font-semibold mb-2">{title}</h3>
+          <p className="text-sm text-center">{description}</p>
+          <ul className="mt-2 flex flex-wrap justify-center gap-2">
+            {techStack.map((tech) => (
+              <li key={tech} className="bg-gray-800 px-2 py-1 rounded-md text-xs">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </a>
+    </motion.div>
   );
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, projectName }) => {
-  return (
-    
-    <div className='card'>
-        <div className='image-box'>
-          <img src='./img1.jpeg'/>
-        </div>
-        <div className='content'>
-          <h2>{title}</h2>
-          <p>{description}</p>
-        </div>
-    </div>
-  );
-}
+
 
 export default ProjectCard;
