@@ -48,8 +48,13 @@ h1 {
 
 .chat {
   max-width: 80%;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 100px);
   margin: auto;
+}
+@media screen and (max-width: 768px) {
+  .chat {
+    max-width: 95%;
+  }
 }
 
 .response {
@@ -58,9 +63,11 @@ h1 {
   text-align: left;
   padding: 30px;
   overflow: auto;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 300px);
   box-sizing: border-box;
 }
+
+
 
 .image-box {
   margin: auto;
