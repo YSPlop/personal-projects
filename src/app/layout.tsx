@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleCaptchaWrapper from "./GoogleCaptchaWrapper";
-import Nav from "@/components/Navigation";
+import Navigation from "@/app/components/Navigation";
 
 export const metadata: Metadata = {
   title: "Yukash's Personal Portfolio",
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-100 text-gray-900 font-sans">
-        <Nav />
+        <Navigation />
         <GoogleCaptchaWrapper>
           {children}
         </GoogleCaptchaWrapper>

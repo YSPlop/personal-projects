@@ -1,7 +1,7 @@
 "use client";
 import './globals.css';
-import GalleryComponent from '../components/GalleryComponent/GalleryComponent';
-import Hero from '../components/Hero/Hero';
+import GalleryComponent from './components/GalleryComponent/GalleryComponent';
+import Hero from './components/Hero/Hero';
 
 export default function Home() {
   return (

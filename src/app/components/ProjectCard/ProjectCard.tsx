@@ -12,14 +12,12 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack, imageUrl, projectLink }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
   return (
     <motion.div
-      ref={cardRef}
       className="relative w-full h-64 bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer"
       whileHover={{ scale: 1.05 }}
       onMouseEnter={handleMouseEnter}

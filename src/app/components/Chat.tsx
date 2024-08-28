@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const Chat = () => {
   const [input, setInput] = useState('');
@@ -46,7 +47,7 @@ const Chat = () => {
     }
 
     // Add the user's message to the messages state
-    const userMessage = { role: 'user', content: input };
+    const userMessage = { id:uuidv4(), role: 'user', content: input };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
 
@@ -77,7 +78,7 @@ const Chat = () => {
       const data = await response.json();
 
       // Append the AI's response to the messages state
-      const aiMessage = { role: 'assistant', content: data.result };
+      const aiMessage = { id: uuidv4(), role: 'assistant', content: data.result };
       setMessages((prevMessages) => [...prevMessages, aiMessage]);
 
     } catch (error) {
@@ -112,10 +113,11 @@ const Chat = () => {
 
   // enter button to submit
   useEffect(() => {
-    const inputField = document.getElementById("input-field") as HTMLTextAreaElement;
 
-    if (inputField) {
-      inputField.addEventListener("keypress", (event: KeyboardEvent) => {
+    const textarea = textAreaRef.current;
+
+    if (textarea) {
+      textarea.addEventListener("keypress", (event: KeyboardEvent) => {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter" && !event.shiftKey) {
           event.preventDefault();
@@ -126,8 +128,8 @@ const Chat = () => {
     }
     // Cleanup function to remove the event listener
     return () => {
-      if (inputField) {
-        inputField.removeEventListener("keypress", () => {});
+      if (textarea) {
+        textarea.removeEventListener("keypress", () => {});
       }
     };
   }, []);
@@ -176,7 +178,6 @@ const Chat = () => {
       <form onSubmit={handleSubmit} className="chat-form">
         <textarea
           ref={textAreaRef}
-          id="input-field"
           name="input-field"
           placeholder="Say anything"
           onChange={handleInputChange}
