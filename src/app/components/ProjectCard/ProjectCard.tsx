@@ -27,7 +27,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
         
         {/* Hover content */}
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 text-white p-4 z-10 transition-opacity duration-300 ${isHovered ? 'opacity-75' : 'opacity-0'}`}
+          className={`absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 text-white p-4 z-10 transition-opacity duration-300 ${isHovered ? 'opacity-85' : 'opacity-0'}`}
         >
           <h3 className="text-xl font-semibold mb-2">{title}</h3>
           <p className="text-sm text-center">{description}</p>

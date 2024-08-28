@@ -13,7 +13,7 @@ const projects = [
     description: 'A turn-based Tic Tac Toe game built using React and custom AI logic.',
     techStack: ['React', 'JavaScript', 'AI Logic'],
     projectLink: '/projects/TicTacToe',
-    imageUrl: '/img1.jpeg',
+    imageUrl: '/tictactoe-overlay.png',
   },
 ];
 
