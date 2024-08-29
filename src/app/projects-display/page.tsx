@@ -6,14 +6,14 @@ const projects = [
     description: 'An AI-powered chatbot built using Next.js, React, and OpenAI.',
     techStack: ['Next.js', 'React', 'OpenAI'],
     projectLink: '/projects/AIChatBot',
-    imageUrl: '/AIChatBot-overlay.jpg',
+    imageUrl: '/project-overlay-images/AIChatBot-overlay.jpg',
   },
   {
     title: 'Tic Tac Toe Game',
     description: 'A turn-based Tic Tac Toe game built using React and custom AI logic.',
     techStack: ['React', 'TypeScript', 'AI Logic'],
     projectLink: '/projects/TicTacToe',
-    imageUrl: '/tictactoe-overlay.png',
+    imageUrl: '/project-overlay-images/tictactoe-overlay.png',
   },
 ];
 

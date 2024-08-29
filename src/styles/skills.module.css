@@ -1,0 +1,28 @@
+@keyframes smooth-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.animate-scroll {
+  display: flex;
+  animation: smooth-scroll 10s linear infinite;
+  width: 200%;
+}
+
+.whitespace-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
