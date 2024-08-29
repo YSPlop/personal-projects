@@ -1,19 +1,7 @@
 import React from 'react';
-import Marquee from 'react-marquee-slider';
 import { FaReact, FaNodeJs, FaAws, FaLaravel, FaPhp, FaVuejs, FaLinux, FaAlgolia, FaJs, FaConfluence, FaJira, FaTrello, FaBitbucket, FaPython, FaJava, FaGit, FaGithub } from 'react-icons/fa';
-import useWindowWidth from '../utils/useWiindowWidth';
-
-import styled from 'styled-components';
-
-const StyledMarquee = styled.div<{ $paused?: boolean; $position?: string }>`
-  /* Example styles */
-  display: flex;
-  overflow: hidden;
-
-  /* Apply styles conditionally based on props */
-  ${({ $paused }) => $paused && 'animation-play-state: paused;'}
-  ${({ $position }) => $position && `position: ${$position};`}
-`;
+import useWindowWidth from '../utils/useWindowWidth';
+import InfiniteCarousel from './InfiniteCarousel';
 
 const Skills: React.FC = () => {
   const skills = [
@@ -52,21 +40,7 @@ const Skills: React.FC = () => {
         <h2 className="text-4xl font-bold mb-12">Skills</h2>
         <div className="flex justify-center items-center overflow-hidden">
           <div className="w-full">
-            <Marquee
-              velocity={velocity}
-              resetAfterTries={200}
-              scatterRandomly={false}
-              direction="ltr"
-              onInit={() => {}}
-              onFinish={() => {}}
-            >
-              {skills.map((skill, index) => (
-                <div key={index} className="inline-block text-center mx-6">
-                  {skill.icon}
-                  <p className="text-lg">{skill.name}</p>
-                </div>
-              ))}
-            </Marquee>
+            <InfiniteCarousel skills={skills} />
           </div>
         </div>
       </div>
@@ -75,3 +49,12 @@ const Skills: React.FC = () => {
 };
 
 export default Skills;
+
+/**
+ * {skills.map((skill, index) => (
+                <div key={index} className="inline-block text-center mx-6">
+                  {skill.icon}
+                  <p className="text-lg">{skill.name}</p>
+                </div>
+              ))}
+ */
