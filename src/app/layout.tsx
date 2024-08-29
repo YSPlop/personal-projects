@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleCaptchaWrapper from "./GoogleCaptchaWrapper";
-import Navigation from "@/components/Navigation";
+import Navigation from "@/app/components/Navigation";
 
 export const metadata: Metadata = {
   title: "Yukash's Personal Portfolio",

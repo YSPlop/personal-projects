@@ -2,7 +2,7 @@
 import React, { ReactElement, useState, useEffect } from "react";
 import "styled-components";
 import Marquee from "react-fast-marquee";
-import useWindowWidth from "@/utils/useWindowWidth";
+import useWindowWidth from "@/app/utils/useWindowWidth";
 
 interface Skill {
     icon: ReactElement; // ReactElement since icons are React components

@@ -1,4 +1,4 @@
-import Skills from "@/components/Skills";
+import Skills from "@/app/components/Skills";
 
 const About: React.FC = () => {
     const aboutText = "I'm a junior developer with a strong passion for front-end development, AI integration, and building meaningful projects that have an impact.";
