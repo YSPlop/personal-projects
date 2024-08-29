@@ -1,7 +1,7 @@
 "use client";
 
 import './chatbot.css'
-import Chat from "../../components/Chat";
+import Chat from "../../../components/Chat";
 
 export default function Home() {
   return (
