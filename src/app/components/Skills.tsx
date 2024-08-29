@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaReact, FaNodeJs, FaAws, FaLaravel, FaPhp, FaVuejs, FaLinux, FaAlgolia, FaJs, FaConfluence, FaJira, FaTrello, FaBitbucket, FaPython, FaJava, FaGit, FaGithub } from 'react-icons/fa';
-import useWindowWidth from '../utils/useWindowWidth';
 import InfiniteCarousel from './InfiniteCarousel';
 
 const Skills: React.FC = () => {
@@ -28,11 +27,6 @@ const Skills: React.FC = () => {
 
     { icon: <FaAws size={50} className="text-yellow-500 mx-auto mb-4" />, name: "AWS" },
   ];
-
-  const windowWidth = useWindowWidth();
-
-  // Set different velocities based on screen width
-  const velocity = windowWidth < 768 ? 10 : 25; // Example: 10 for mobile, 25 for larger screens
 
   return (
     <section className="py-20">
