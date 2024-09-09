@@ -43,12 +43,3 @@ const Skills: React.FC = () => {
 };
 
 export default Skills;
-
-/**
- * {skills.map((skill, index) => (
-                <div key={index} className="inline-block text-center mx-6">
-                  {skill.icon}
-                  <p className="text-lg">{skill.name}</p>
-                </div>
-              ))}
- */

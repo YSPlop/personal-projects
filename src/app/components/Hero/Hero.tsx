@@ -41,10 +41,10 @@ const Hero: React.FC = () => {
           transition={{ delay: 0.5 }}
         >
           <a href="https://github.com/YSPlop" target="_blank" rel="noreferrer">
-            <FaGithub size={24} />
+            <FaGithub size={36} />
           </a>
           <a href="https://linkedin.com/in/yukash-sivaraj" target="_blank" rel="noreferrer">
-            <FaLinkedin size={24} />
+            <FaLinkedin size={36} />
           </a>
         </motion.div>
       </section>
