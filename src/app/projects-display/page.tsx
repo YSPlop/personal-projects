@@ -1,4 +1,4 @@
-import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
+import ProjectCard from "@/components/ProjectCard/ProjectCard";
 
 const projects = [
   {

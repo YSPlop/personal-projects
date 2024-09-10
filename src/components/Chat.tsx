@@ -156,7 +156,7 @@ const Chat = () => {
               alt="avatar"
               width={40}
               height={40}
-              src={m.role === "user" ? "/user-avatar.jpg" : "/ai-avatar.png"}
+              src={m.role === "user" ? "/ai-bot-images/user-avatar.jpg" : "/ai-bot-images/ai-avatar.png"}
             />
             <div style={{ width: "100%", marginLeft: "16px" }}>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>

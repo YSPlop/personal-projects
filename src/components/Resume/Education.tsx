@@ -1,7 +1,7 @@
 // src/components/Education.tsx
 "use client"
 import { motion } from "framer-motion";
-import { education } from "../../../../public/resume/resume";
+import { education } from "../../../public/resume/resume";
 
 const Education = () => (
   <section className="py-8">

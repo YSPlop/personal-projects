@@ -1,7 +1,7 @@
 "use client";
 import './globals.css';
-import GalleryComponent from './components/GalleryComponent/GalleryComponent';
-import Hero from './components/Home/Hero';
+import GalleryComponent from '../components/GalleryComponent/GalleryComponent';
+import Hero from '../components/Home/Hero';
 import About from './about/page';
 import Portfolio from './projects-display/page';
 

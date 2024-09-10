@@ -1,4 +1,4 @@
-import { projects } from "../../../../public/resume/resume";
+import { projects } from "../../../public/resume/resume";
 
 const Projects = () => (
   <section className="py-8">

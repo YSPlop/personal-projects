@@ -1,4 +1,4 @@
-import { workExperiences } from "../../../../public/resume/resume";
+import { workExperiences } from "../../../public/resume/resume";
 
 const WorkExperience = () => (
   <section className="py-8">
