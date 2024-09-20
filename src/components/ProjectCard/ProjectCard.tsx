@@ -1,6 +1,7 @@
 "use client"
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaGithub } from 'react-icons/fa';
 
 interface ProjectCardProps {
   title: string;
@@ -8,9 +9,10 @@ interface ProjectCardProps {
   techStack: string[];
   imageUrl: string;
   projectLink: string;
+  githubRepo: string; // New prop for the GitHub repo link
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack, imageUrl, projectLink }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack, imageUrl, projectLink, githubRepo }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => setIsHovered(true);
@@ -23,7 +25,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <a href={projectLink} className="block w-full h-full relative">
+      <div className="block w-full h-full relative">
         
         {/* Hover content */}
         <div
@@ -38,6 +40,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
               </li>
             ))}
           </ul>
+          
+          {/* Buttons */}
+          <div className="mt-4 flex justify-center gap-4">
+            {/* View Project Button */}
+            <a
+              href={projectLink}
+              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-colors duration-300"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              View Project
+            </a>
+
+            {/* View GitHub Button */}
+            <a
+              href={githubRepo}
+              className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded transition-colors duration-300 flex items-center gap-2"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <FaGithub size={20} />
+              GitHub
+            </a>
+          </div>
         </div>
 
         {/* Image */}
@@ -47,7 +73,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 z-0 grayscale-0"
         />
         
-      </a>
+      </div>
     </motion.div>
   );
 };
