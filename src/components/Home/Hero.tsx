@@ -6,7 +6,6 @@ import Contact from "../Contact";
 
 const Hero: React.FC = () => {
 
-  // flipped
   const [flipped, setFlipped] = useState(false);
   
   const toggleFlip = () => {
