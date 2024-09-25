@@ -1,180 +1,196 @@
 "use client";
-import { useState } from "react";
-import './tictactoe.css'
-
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import "./tictactoe.css";
+import { gsap } from "gsap"
 
 interface SquareProps {
-    value: string|null;
-    onSquareClick: ()=> void
-  };
+    value: string | null;
+    onSquareClick: () => void;
+    winningSquare: boolean;
+  }
   
-function Square({value, onSquareClick}: SquareProps) {
+  function Square({ value, onSquareClick, winningSquare }: SquareProps) {
+    const squareRef = useRef<HTMLSpanElement>(null);
+  
+    useEffect(() => {
+      if (value === "X") {
+        const tl = gsap.timeline();
+        tl.fromTo(
+          squareRef.current,
+          { scale: 0, rotation: 180 },
+          { scale: 1, rotation: 0, duration: 0.3 }
+        ).to(squareRef.current, { scale: 1, duration: 0.3 });
+      }
+    }, [value]);
+  
     return (
-        <button className="border border-black rounded shadow text-black h-[30px] w-[30px]" onClick={onSquareClick}>
-        {value}
-        </button>
+      <motion.button
+        className={`border border-black rounded shadow text-black h-[60px] w-[60px] flex items-center justify-center transition-all duration-200 ease-in-out ${
+          winningSquare ? "bg-yellow-300" : "bg-white"
+        }`}
+        onClick={onSquareClick}
+        whileTap={{ scale: 0.95 }}
+      >
+        <motion.span
+          className="text-2xl"
+          ref={squareRef}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: value ? 1 : 0, opacity: value ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {value}
+        </motion.span>
+      </motion.button>
     );
-}
+  }
 
-function calculateWinner(squares: string[]): string | null {
-    const lines = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-        [0, 4, 8], [2, 4, 6]              // Diagonals
-    ];
+function calculateWinner(squares: string[]): [string | null, number[] | null] {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8], // Rows
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8], // Columns
+    [0, 4, 8],
+    [2, 4, 6], // Diagonals
+  ];
 
-    for (let line of lines) {
-        const [a, b, c] = line;
-        if (squares[a] !== '.' && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-        }
+  for (let line of lines) {
+    const [a, b, c] = line;
+    if (squares[a] !== "." && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return [squares[a], line]; // return the winner and the winning squares
     }
+  }
 
-    return null;
+  return [null, null];
 }
 
 export default function Board() {
-    const defaultBoardValue = '.';
+  const defaultBoardValue = ".";
+  const [xIsNext, setXIsNext] = useState(true);
+  const [xMoves, setXMoves] = useState<number[]>([]);
+  const [oMoves, setOMoves] = useState<number[]>([]);
+  const [squares, setSquares] = useState(Array(9).fill(defaultBoardValue));
+  const gameExplanation =
+    "Welcome to a cursed game of Tic Tac Toe, where every 4 moves, your first move disappears. Hope you have some fun playing this version!";
 
-    const [xIsNext, setXIsNext] = useState(true);
-    const [xMoves, setXMoves] = useState<number[]>([]);
-    const [oMoves, setOMoves] = useState<number[]>([]);
-    const [squares, setSquares] = useState(Array(9).fill(defaultBoardValue));
-    const gameExplanation = "Welcome to a cursed game of Tic Tac Toe, where every 4 moves, your first move disappears, hope you have some fun playing this version";
-
-    function handleClick(i: number) {
-        if (calculateWinner(squares) || squares[i] !== defaultBoardValue) {
-        return;
-        }
-
-        const nextSquares = squares.slice();
-
-        // X move
-        if (xIsNext) {
-        makeMove(xMoves, setXMoves, 'X', i, nextSquares);
-        setXIsNext(false);
-
-        // After X move, check if game has been won
-        if (!calculateWinner(nextSquares)) {
-            // O move using AI logic
-            const bestMove = calculateBestMove(nextSquares, 'O');
-            if (bestMove !== -1) {
-            makeMove(oMoves, setOMoves, 'O', bestMove, nextSquares);
-            }
-            setXIsNext(true);
-        }
-        }
-
-        setSquares(nextSquares);
+  function handleClick(i: number) {
+    if (calculateWinner(squares)[0] || squares[i] !== defaultBoardValue) {
+      return;
     }
 
-    function makeMove(moves: number[], setMoves: Function, mark: string, i: number, nextSquares: string[]) {
-        let movesCopy = moves.slice();
-        nextSquares[i] = mark;
-        movesCopy.push(i);
-        if (movesCopy.length > 3) {
-        const elementToRemove = movesCopy.shift();
-        nextSquares[elementToRemove as number] = defaultBoardValue;
+    const nextSquares = squares.slice();
+
+    // X move
+    if (xIsNext) {
+      makeMove(xMoves, setXMoves, "X", i, nextSquares);
+      setSquares(nextSquares); // X placed immediately
+      setXIsNext(false);
+
+      // Wait for a delay before the AI moves (fixed to delay after X move)
+      setTimeout(() => {
+        if (!calculateWinner(nextSquares)[0]) {
+          // O move using AI logic
+          const bestMove = calculateBestMove(nextSquares, "O");
+          if (bestMove !== -1) {
+            makeMove(oMoves, setOMoves, "O", bestMove, nextSquares);
+          }
+          setXIsNext(true);
+          setSquares(nextSquares); // Update the board after O's move
         }
-        setMoves(movesCopy);
+      }, 1000); // 1000ms delay for the AI move
+    }
+  }
+
+  function makeMove(moves: number[], setMoves: Function, mark: string, i: number, nextSquares: string[]) {
+    let movesCopy = moves.slice();
+    nextSquares[i] = mark;
+    movesCopy.push(i);
+    if (movesCopy.length > 3) {
+      const elementToRemove = movesCopy.shift();
+      nextSquares[elementToRemove as number] = defaultBoardValue;
+    }
+    setMoves(movesCopy);
+  }
+
+  function calculateBestMove(board: string[], mark: string) {
+    for (let i = 0; i < 9; i++) {
+      if (board[i] === defaultBoardValue) {
+        const tempBoard = board.slice();
+        tempBoard[i] = mark;
+
+        if (calculateWinner(tempBoard)[0] === mark) {
+          return i;
+        }
+      }
     }
 
-    function calculateBestMove(board: string[], mark: string) {
-        // Strategy: 1) Winning move, 2) Block opponent, 3) Otherwise take the best open space
-        for (let i = 0; i < 9; i++) {
-            if (board[i] === defaultBoardValue) {
-                // Clone the board and simulate placing 'O'
-                const tempBoard = board.slice();
-                tempBoard[i] = mark;
-
-                if (calculateWinner(tempBoard) === mark) {
-                    return i; // 'O' wins
-                }
-            }
+    for (let i = 0; i < 9; i++) {
+      if (board[i] === defaultBoardValue) {
+        const tempBoard = board.slice();
+        tempBoard[i] = "X";
+        if (calculateWinner(tempBoard)[0] === "X") {
+          return i;
         }
-
-        // Block opponent's winning move
-        for (let i = 0; i < 9; i++) {
-            if (board[i] === defaultBoardValue) {
-                const tempBoard = board.slice();
-                tempBoard[i] = 'X'; // simulate 'X' move
-                if (calculateWinner(tempBoard) === 'X') {
-                    return i; // Block 'X'
-                }
-            }
-        }
-
-        // If no immediate win or block, take an open corner, center, or side
-        const openCorners = [0, 2, 6, 8].filter(i => board[i] === defaultBoardValue);
-        if (openCorners.length) {
-            return openCorners[Math.floor(Math.random() * openCorners.length)];
-        }
-
-        if (board[4] === defaultBoardValue) {
-            return 4; // Take center if open
-        }
-
-        const openSides = [1, 3, 5, 7].filter(i => board[i] === defaultBoardValue);
-        if (openSides.length) {
-            return openSides[Math.floor(Math.random() * openSides.length)];
-        }
-
-        return -1; // No move available
+      }
     }
 
-    function resetBoard() {
-        setSquares(Array(9).fill(defaultBoardValue));
-        setXMoves([]);
-        setOMoves([]);
-        setXIsNext(true);
+    const openCorners = [0, 2, 6, 8].filter((i) => board[i] === defaultBoardValue);
+    if (openCorners.length) {
+      return openCorners[Math.floor(Math.random() * openCorners.length)];
     }
 
-    const winner = calculateWinner(squares);
-    const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
+    if (board[4] === defaultBoardValue) {
+      return 4;
+    }
 
-    return (
-        <>
+    const openSides = [1, 3, 5, 7].filter((i) => board[i] === defaultBoardValue);
+    if (openSides.length) {
+      return openSides[Math.floor(Math.random() * openSides.length)];
+    }
+
+    return -1;
+  }
+
+  function resetBoard() {
+    setSquares(Array(9).fill(defaultBoardValue));
+    setXMoves([]);
+    setOMoves([]);
+    setXIsNext(true);
+  }
+
+  const [winner, winningSquares] = calculateWinner(squares);
+  const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? "X" : "O"}`;
+
+  return (
+    <>
+      <div className="text-center">
+        <h1 className="font-family:jetbrains mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-purple-800 mr-5">Cursed</span>
+          TicTacToe.
+        </h1>
+
+        <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 font-mono">{gameExplanation}</p>
+      </div>
+      <div className="w-full py-10">
         <div className="text-center">
-            <h1 className="font-family:jetbrains mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"  style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-purple-800 mr-5">
-                Cursed
-            </span>
-            TicTacToe.
-            </h1>
-            
-            <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 font-mono">
-            {gameExplanation}
-            </p>
-        </div>
-        <div className="w-full py-10">
-            <div className="text-center">
-            <div className="status">{status}</div>
-            <div className="flex items-center justify-center">
-                <div className="board">
-                <div className="board-row">
-                    <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-                    <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-                    <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-                </div>
-                <div className="board-row">
-                    <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-                    <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-                    <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-                </div>
-                <div className="board-row">
-                    <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-                    <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-                    <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-                </div>
-                </div>
-                <button onClick={resetBoard} className="ml-[20px] button-75">
-                    <span>
-                        Reset
-                    </span>
-                </button>
+          <motion.div className="status mb-4 text-xl font-bold" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+            {status}
+          </motion.div>
+          <div className="flex items-center justify-center">
+            <div className="board grid grid-cols-3 gap-2">
+              {squares.map((value, i) => (
+                <Square key={i} value={value} onSquareClick={() => handleClick(i)} winningSquare={winningSquares?.includes(i) ?? false} />
+              ))}
             </div>
-            </div>
+            <button onClick={resetBoard} className="ml-[20px] button-75 hover:scale-105 transition-transform">
+              <span>Reset</span>
+            </button>
+          </div>
         </div>
-        </>
-    );
+      </div>
+    </>
+  );
 }

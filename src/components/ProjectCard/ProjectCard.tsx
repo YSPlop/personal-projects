@@ -8,8 +8,8 @@ interface ProjectCardProps {
   description: string;
   techStack: string[];
   imageUrl: string;
-  projectLink: string;
-  githubRepo: string; // New prop for the GitHub repo link
+  projectLink?: string;  // Optional project link
+  githubRepo?: string;   // Optional GitHub link
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack, imageUrl, projectLink, githubRepo }) => {
@@ -24,6 +24,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
       whileHover={{ scale: 1.05 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      style={{ borderRadius: '30px' }}
     >
       <div className="block w-full h-full relative">
         
@@ -41,28 +42,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, techStack
             ))}
           </ul>
           
-          {/* Buttons */}
+          {/* Conditional Rendering of Buttons */}
           <div className="mt-4 flex justify-center gap-4">
-            {/* View Project Button */}
-            <a
-              href={projectLink}
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-colors duration-300"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              View Project
-            </a>
+            {/* View Project Button - Only if projectLink is provided */}
+            {projectLink && (
+              <a
+                href={projectLink}
+                className={`bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-colors duration-300 ${isHovered ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                View Project
+              </a>
+            )}
 
-            {/* View GitHub Button */}
-            <a
-              href={githubRepo}
-              className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded transition-colors duration-300 flex items-center gap-2"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <FaGithub size={20} />
-              GitHub
-            </a>
+            {/* GitHub Button - Only if githubRepo is provided */}
+            {githubRepo && (
+              <a
+                href={githubRepo}
+                className={`bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded transition-colors duration-300 flex items-center gap-2 ${isHovered ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <FaGithub size={20} />
+                GitHub
+              </a>
+            )}
           </div>
         </div>
 

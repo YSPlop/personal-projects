@@ -9,12 +9,9 @@ import Contact from '@/components/Contact';
 export default function Home() {
   return (
     <>
-      <div>
-        {/* <GalleryComponent /> */}
-        <Hero />
-        <About />
-        <Portfolio />
-      </div>
+      <Hero />
+      <About />
+      <Portfolio />
     </>
   );
 

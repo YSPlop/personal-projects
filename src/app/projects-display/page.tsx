@@ -6,6 +6,7 @@ const projects = [
     description: 'An AI-powered chatbot built using Next.js, React, and OpenAI.',
     techStack: ['Next.js', 'React', 'OpenAI'],
     projectLink: '/projects/AIChatBot',
+    githubRepo: 'https://github.com/YSPlop/personal-projects',
     imageUrl: '/project-overlay-images/AIChatBot-overlay.jpg',
   },
   {
@@ -13,8 +14,23 @@ const projects = [
     description: 'A turn-based Tic Tac Toe game built using React and custom AI logic.',
     techStack: ['React', 'TypeScript', 'AI Logic'],
     projectLink: '/projects/TicTacToe',
+    githubRepo: 'https://github.com/YSPlop/personal-projects',
     imageUrl: '/project-overlay-images/tictactoe-overlay.png',
   },
+  {
+    title: 'SafeCircle Android App',
+    description: 'Mobile App used to keep track of very young children, with heaps of Safety features',
+    techStack: ['Kotlin', 'Jetpack Compose', 'GoogleMaps API'],
+    githubRepo: 'https://github.com/Luchen2001/COMP90018_Ass2',
+    imageUrl: '/project-overlay-images/Safecircle-overlay.png',
+  },
+  {
+    title: 'Distributed Whiteboard',
+    description: 'A peer-to-peer file-sharing system using hybrid client/server and peer-to-peer architecture.',
+    techStack: ['Java', 'Maven', 'JSON'],
+    githubRepo: 'https://github.com/YSPlop/distributed-systems-whiteboard',
+    imageUrl: '/project-overlay-images/DistributedWhiteboard-overlay.png',
+},
 ];
 
 export default function Portfolio() {
@@ -29,6 +45,7 @@ export default function Portfolio() {
             description={project.description}
             techStack={project.techStack}
             projectLink={project.projectLink}
+            githubRepo={project.githubRepo}
             imageUrl={project.imageUrl}
           />
         ))}
