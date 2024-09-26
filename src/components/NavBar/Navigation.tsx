@@ -1,16 +1,16 @@
 "use client";
 import React from "react";  
 import { Navbar, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/react";
-import BentoCard from "@/components/BentoCard/BentoCard"; // Adjust the path if needed
+import BentoCard from "@/components/BentoCard/BentoCard";
 import Link from "next/link";
 
 const Navigation = () => {  
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const navLinks = [
-    { href: '/', label: 'Home', imageSrc: '/nav-bar/home-image.jpg' }, // Replace with your actual image paths
-    { href: '/projects-display', label: 'Projects', imageSrc: '/nav-bar/project.jpg' },
-    { href: '/contact', label: 'Contact', imageSrc: '/images/contact.png' },
+    { href: '/', label: 'Home', imageSrc: '/nav-bar/home.webp' }, // Replace with your actual image paths
+    { href: '/projects-display', label: 'Projects', imageSrc: '/nav-bar/project.webp' },
+    { href: '/contact', label: 'Contact', imageSrc: '/images/contact.webp' },
   ];
 
   return (
@@ -19,10 +19,7 @@ const Navigation = () => {
       className={isMenuOpen ? 'backdrop-blur-lg bg-opacity-80' : ''}
       style={{ transition: 'background-color 0.3s ease', justifyContent: 'center' }} // Center the content horizontally
       isBordered
-    >
-
-      {/* Navbar Menu Toggle for mobile */}
-      
+    >      
 
       {/* Desktop Navigation */}
       <NavbarContent className="hidden sm:flex gap-4 mx-auto" justify="center">
@@ -37,6 +34,7 @@ const Navigation = () => {
           ))}
       </NavbarContent>
 
+      {/* Navbar Menu Toggle for mobile */}
       <NavbarContent className="sm:hidden">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
