@@ -95,7 +95,7 @@ export type FormData = {
   message: string;
 };
 
-const Contact: FC = () => {
+const ContactForm: FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   function onSubmit(data: any) {
@@ -158,4 +158,4 @@ const Contact: FC = () => {
   );
 };
 
-export default Contact;
+export default ContactForm;
