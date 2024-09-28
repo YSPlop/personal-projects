@@ -8,9 +8,9 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const navLinks = [
-    { href: '/', label: 'Home', imageSrc: '/nav-bar/home.webp' }, // Replace with your actual image paths
-    { href: '/projects-display', label: 'Projects', imageSrc: '/nav-bar/project.webp' },
-    { href: '/contact', label: 'Contact', imageSrc: '/nav-bar/contact.webp' },
+    { href: '/', label: 'Home', imageSrc: '/nav-bar/home.jpg' }, // Replace with your actual image paths
+    { href: '/projects-display', label: 'Projects', imageSrc: '/nav-bar/projects.webp' },
+    { href: '/contact', label: 'Contact', imageSrc: '/nav-bar/contact-me.gif' },
   ];
 
   return (
