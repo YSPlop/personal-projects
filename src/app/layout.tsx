@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="bg-gray-100 text-gray-900 h-screen w-screen font-sans"
+        className="bg-gray-100 text-gray-900 w-screen font-sans min-h-screen"
         suppressHydrationWarning={true}
       >
         <Navigation />

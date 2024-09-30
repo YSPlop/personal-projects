@@ -21,7 +21,7 @@ const projects = [
     title: 'SafeCircle Android App',
     description: 'Mobile App used to keep track of very young children, with heaps of Safety features',
     techStack: ['Kotlin', 'Jetpack Compose', 'GoogleMaps API'],
-    githubRepo: 'https://github.com/Luchen2001/COMP90018_Ass2',
+    githubRepo: 'https://github.com/YSPlop/COMP90018_Ass2',
     imageUrl: '/project-overlay-images/Safecircle-overlay.png',
   },
   {
@@ -30,7 +30,14 @@ const projects = [
     techStack: ['Java', 'Maven', 'JSON'],
     githubRepo: 'https://github.com/YSPlop/distributed-systems-whiteboard',
     imageUrl: '/project-overlay-images/DistributedWhiteboard-overlay.png',
-},
+  },
+  {
+    title: 'Social Media Sentiment Analysis',
+    description: 'A cloud-based application analyzing Twitter and Mastodon sentiment data with NLP and visualizing correlations with social indicators like family stress. Deployed using dynamic scaling and containerization.',
+    techStack: ['Python', 'Flask', 'React.js', 'Docker', 'CouchDB', 'Ansible', 'NLP', 'Melbourne Research Cloud'],
+    githubRepo: 'https://github.com/YSPlop/COMP90024-T13',
+    imageUrl: '/project-overlay-images/SocialMediaAnalysis-overlay.svg',
+  } 
 ];
 
 export default function Portfolio() {

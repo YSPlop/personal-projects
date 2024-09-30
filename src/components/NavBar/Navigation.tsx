@@ -37,7 +37,7 @@ const Navigation = () => {
       {/* Navbar Menu Toggle for mobile */}
       <NavbarContent className="sm:hidden">
           <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMenuOpen ? "Close menu" : " Open menu"}
           />
       </NavbarContent>
 
