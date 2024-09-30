@@ -34,7 +34,7 @@ const projects = [
   {
     title: 'Social Media Sentiment Analysis',
     description: 'A cloud-based application analyzing Twitter and Mastodon sentiment data with NLP and visualizing correlations with social indicators like family stress. Deployed using dynamic scaling and containerization.',
-    techStack: ['Python', 'Flask', 'React.js', 'Docker', 'CouchDB', 'Ansible', 'NLP', 'Melbourne Research Cloud'],
+    techStack: ['Flask', 'React.js', 'Docker', 'CouchDB', 'Ansible', 'NLP'],
     githubRepo: 'https://github.com/YSPlop/COMP90024-T13',
     imageUrl: '/project-overlay-images/SocialMediaAnalysis-overlay.svg',
   } 
