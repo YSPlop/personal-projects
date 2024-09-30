@@ -33,9 +33,9 @@ const Contact: React.FC = () => {
     //     </form>
     //   </div>
     // </section>
-    <>
+    <div>
       <ContactForm />
-    </>
+    </div>
   );
 };
 

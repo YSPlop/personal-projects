@@ -66,7 +66,6 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
-
 // Updated button style with a more modern look
 const StyledButton = styled.button`
   width: 100%;
@@ -89,6 +88,51 @@ const StyledButton = styled.button`
   }
 `;
 
+// Wrapper to handle responsiveness and full screen background
+const FormWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: #f3f4f6;
+  padding: 2rem;
+  margin: 0;
+  /* border-radius: 30px; */
+  max-width: 100%;
+  min-height: 100vh; /* Make the wrapper fill the full height of the screen */
+  min-width: 100vw;
+  opacity: 90;
+
+  /* Mobile styles */
+  @media (max-width: 640px) {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  /* Tablet styles */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    width: 80%;
+  }
+
+  /* Desktop styles */
+  @media (min-width: 1025px) {
+    width: 60%;
+    padding: 3rem;
+  }
+
+  background: linear-gradient(to bottom right, #1e3a8a, #000000, #047857);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+`;
+
+const ContactFormContainer = styled.div`
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+`;
+
+// Form data types
 export type FormData = {
   name: string;
   email: string;
@@ -103,8 +147,8 @@ const ContactForm: FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 rounded-lg my-10">
-      <div className="bg-gradient-to-br from-blue-700 via-black to-green-700 shadow-lg rounded-lg p-8 w-full max-w-sm opacity-90" style={{ borderRadius: '30px' }}>
+    <FormWrapper>
+      <ContactFormContainer>
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">Drop me a message</h2>
         
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -153,8 +197,8 @@ const ContactForm: FC = () => {
           {/* Submit Button */}
           <StyledButton type="submit">Send Message</StyledButton>
         </form>
-      </div>
-    </div>
+      </ContactFormContainer>
+    </FormWrapper>
   );
 };
 
