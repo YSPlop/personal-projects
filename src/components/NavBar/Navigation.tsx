@@ -25,7 +25,7 @@ const Navigation = () => {
       <NavbarContent className="hidden sm:flex gap-4 mx-auto" justify="center">
           {navLinks.map(({ href, label }) => (
             <NavbarItem key={href}>
-              <Link href={href} className="relative group text-inherit">
+              <Link href={href} className="relative group text-inherit no-underline">
                 {label}
                 {/* Simple underline on hover */}
                 <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
