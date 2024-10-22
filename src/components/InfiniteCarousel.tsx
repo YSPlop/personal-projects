@@ -17,7 +17,7 @@ const InfiniteCarousel: React.FC<infiniteCarouselProps> = ({ skills }) => {
 
   const [bgColor, setBgColor] = useState('');
   const windowWidth = useWindowWidth();
-  const velocity = windowWidth < 768 ? 25 : 50; // Example: 10 for mobile, 25 for larger screens
+  const velocity = windowWidth < 768 ? 25 : 50; // Example: 10 for mobile, 25 for larger screens lol
 
 
   useEffect(() => {
