@@ -10,7 +10,7 @@ const Navigation = () => {
   const navLinks = [
     { href: '/', label: 'Home', imageSrc: '/nav-bar/home.jpg' }, // Replace with your actual image paths
     { href: '/projects-display', label: 'Projects', imageSrc: '/nav-bar/projects.webp' },
-    { href: '/contact', label: 'Contact', imageSrc: '/nav-bar/contact-me.gif' },
+    { href: '/contact', label: 'Contact', imageSrc: ' /nav-bar/contact-me.gif' },
   ];
 
   return (
